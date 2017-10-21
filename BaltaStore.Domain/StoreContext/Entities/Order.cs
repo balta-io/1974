@@ -27,24 +27,22 @@ namespace BaltaStore.Domain.StoreContext.Entities
         public IReadOnlyCollection<OrderItem> Items => _items.ToArray();
         public IReadOnlyCollection<Delivery> Deliveries => _deliveries.ToArray();
 
-        public void AddItem(OrderItem item)
-        {
-            _items.Add(item);
-        }
-
         public void AddItem(Product product, decimal quantity)
         {
+            if(quantity > product.QuantityOnHand)
+                AddNotification("OrderItem", $"Produto {product.Title} nÃ£o tem {quantity} itens em estoque.");
+            
             var item = new OrderItem(product, quantity);
-            AddItem(item);
+            _items.Add(item);            
         }
 
         // Criar um pedido
         public void Place()
         {
-            // Gera o número do pedido
+            // Gera o nï¿½mero do pedido
             Number = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 8).ToUpper();
             if (_items.Count == 0)
-                AddNotification("Order", "Este pedido não possui itens");
+                AddNotification("Order", "Este pedido nÃ£o possui itens");
         }
 
         // Pagar um pedido
@@ -56,9 +54,9 @@ namespace BaltaStore.Domain.StoreContext.Entities
         // Enviar um pedido
         public void Ship()
         {
-            // A cada 5 produtos é uma entrega
+            // A cada 5 produtos ï¿½ uma entrega
             var deliveries = new List<Delivery>();
-            deliveries.Add(new Delivery(DateTime.Now.AddDays(5)));
+            // deliveries.Add(new Delivery(DateTime.Now.AddDays(5)));
             var count = 1;
 
             // Quebra as entregas

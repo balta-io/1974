@@ -5,9 +5,9 @@ namespace BaltaStore.Domain.StoreContext.Entities
     public class Product : Notifiable
     {
         public Product(
-            string title, 
-            string description, 
-            string image, 
+            string title,
+            string description,
+            string image,
             decimal price,
             decimal quantity)
         {
@@ -27,6 +27,11 @@ namespace BaltaStore.Domain.StoreContext.Entities
         public override string ToString()
         {
             return Title;
+        }
+
+        public void DecreaseQuantity(decimal quantity)
+        {
+            QuantityOnHand -= quantity;
         }
     }
 }
