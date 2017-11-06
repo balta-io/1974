@@ -17,6 +17,7 @@ namespace BaltaStore.Tests
 
         public OrderTests()
         {
+            // Recupera os produtos do banco
             var name = new Name("André", "Baltieri");
             var document = new Document("46718115533");
             var email = new Email("hello@balta.io");
