@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -20,7 +22,7 @@ namespace BaltaStore.Infra.StoreContext.Repositories
 
         public bool CheckDocument(string document)
         {
-            return 
+            return
                 _context
                 .Connection
                 .Query<bool>(
@@ -41,6 +43,23 @@ namespace BaltaStore.Infra.StoreContext.Repositories
                 .FirstOrDefault();
         }
 
+        public IEnumerable<ListCustomerQueryResult> Get()
+        {
+            return
+                _context
+                .Connection
+                .Query<ListCustomerQueryResult>("SELECT [Id], CONCAT([FirstName], ' ', [LastName]) AS [Name], [Document], [Email] FROM [Customer]", new { });
+        }
+
+        public GetCustomerQueryResult Get(Guid id)
+        {
+            return
+                _context
+                .Connection
+                .Query<GetCustomerQueryResult>("SELECT [Id], CONCAT([FirstName], ' ', [LastName]) AS [Name], [Document], [Email] FROM [Customer] WHERE [Id]=@id", new { id = id })
+                .FirstOrDefault();
+        }
+
         public CustomerOrdersCountResult GetCustomerOrdersCount(string document)
         {
             return _context
@@ -50,6 +69,14 @@ namespace BaltaStore.Infra.StoreContext.Repositories
                     new { Document = document },
                     commandType: CommandType.StoredProcedure)
                 .FirstOrDefault();
+        }
+
+        public IEnumerable<ListCustomerOrdersQueryResult> GetOrders(Guid id)
+        {
+            return
+                _context
+                .Connection
+                .Query<ListCustomerOrdersQueryResult>("", new { id = id });
         }
 
         public void Save(Customer customer)

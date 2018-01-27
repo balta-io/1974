@@ -2,6 +2,7 @@ using BaltaStore.Domain.StoreContext.CustomerCommands.Inputs;
 using BaltaStore.Domain.StoreContext.Entities;
 using BaltaStore.Domain.StoreContext.Enums;
 using BaltaStore.Domain.StoreContext.ValueObjects;
+using BaltaStore.Infra.DataContexts;
 using BaltaStore.Infra.StoreContext.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -9,7 +9,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BaltaStore.Domain\BaltaStore.Domain.csproj" />
+    <ProjectReference Include="..\BaltaStore.Shared\BaltaStore.Shared.csproj" />
+    <ProjectReference Include="..\BaltaStore.Infra\BaltaStore.Infra.csproj" />
   </ItemGroup>
 
 </Project>
