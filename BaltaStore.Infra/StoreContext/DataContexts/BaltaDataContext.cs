@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using BaltaStore.Shared;
 
-namespace BaltaStore.Infra.StoreContext.Repositories
+namespace BaltaStore.Infra.DataContexts
 {
     public class BaltaDataContext : IDisposable
     {
