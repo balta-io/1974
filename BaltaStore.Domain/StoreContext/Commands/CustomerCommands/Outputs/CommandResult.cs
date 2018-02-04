@@ -5,9 +5,9 @@ using FluentValidator.Validation;
 
 namespace BaltaStore.Domain.StoreContext.CustomerCommands.Inputs
 {
-    public class CreateCustomerCommandResult : ICommandResult
+    public class CommandResult : ICommandResult
     {
-        public CreateCustomerCommandResult(bool success, string message, object data)
+        public CommandResult(bool success, string message, object data)
         {
             Success = success;
             Message = message;
