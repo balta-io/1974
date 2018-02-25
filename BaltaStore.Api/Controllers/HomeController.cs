@@ -12,7 +12,7 @@ namespace BaltaStore.Api.Controllers
         // [Route("clientes/2587/pedidos")] // Pedidos do cliente 2587
         public object Get()
         {
-            return new { version = "Version 0.0.1" };
+            return new { version = "Version 0.0.2" };
         }
 
         [HttpGet]

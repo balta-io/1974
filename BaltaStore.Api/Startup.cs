@@ -11,13 +11,25 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using Elmah.Io.AspNetCore;
 using System;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using BaltaStore.Shared;
 
 namespace BaltaStore.Api
 {
     public class Startup
     {
+        public static IConfiguration Configuration { get; set; }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            Configuration = builder.Build();
+
+            services.AddApplicationInsightsTelemetry(Configuration);
             services.AddMvc();
 
             services.AddResponseCompression();
@@ -31,6 +43,8 @@ namespace BaltaStore.Api
             {
                 x.SwaggerDoc("v1", new Info { Title = "Balta Store", Version = "v1" });
             });
+
+            Settings.ConnectionString = $"{Configuration["connectionString"]}";
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
